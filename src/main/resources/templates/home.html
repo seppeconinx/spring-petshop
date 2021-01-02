@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <div th:replace="~{nav::imports}"></div>
+</head>
+<body>
+<nav th:replace="~{nav::navbar}"></nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3" th:each="item : ${all}">
+            <div id="productcard" class="card">
+                <img class="card-img-top" th:src="${item.afbeelding}" >
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${item.naam}"></h5>
+                    <h6 class="card-subtitle" th:text="${item.prijs}"></h6>
+                    <p class="card-text" th:text="${item.beschrijving}"></p>
+                    <a id="addButton" th:href="@{~/home/add/{id}(id=${item.id})}" class="btn btn-primary">Toevoegen aan winkelmand</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
