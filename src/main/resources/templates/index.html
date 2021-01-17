@@ -5,7 +5,9 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
     <title>Dierenwinkel Coninx</title>
     <style>
         .card-img-top {
@@ -30,7 +32,13 @@
                     <h5 class="card-title" th:text="${product.name}"></h5>
                     <h6 class="card-subtitle mb-2 text-muted" th:text="'€' + ${product.price}"></h6>
                     <p th:text="${product.description}"></p>
-                   <!-- <button type="button" class="btn default-color text-white btn-md" th:data-id="${product.id}" th:text="Add to cart"></button>-->
+                    <form method="get" th:action="@{~/cart/addProduct}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="text" th:value="${product.id}" name="id" hidden>
+                        </div>
+                        <button class="btn btn-primary" th:field="submit"
+                                th:text="Buy"></button>
+                    </form>
                 </div>
             </div>
         </div>

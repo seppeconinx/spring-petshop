@@ -1,8 +1,6 @@
 package be.ehb.dierenwinkel.controllers;
 
-import be.ehb.dierenwinkel.models.Cart;
 import be.ehb.dierenwinkel.models.User;
-import be.ehb.dierenwinkel.repositories.CartRepository;
 import be.ehb.dierenwinkel.repositories.UserRepository;
 import be.ehb.dierenwinkel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +19,6 @@ public class RegisterController {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private CartRepository cartRepository;
     @ModelAttribute("newUser")
     public User registerNewUser(){
         return new User();
@@ -44,17 +40,12 @@ public class RegisterController {
         }
         userService.save(user);
 
-        //Create cart
-        Cart cart =new Cart();
-        cart.setUser(userRepository.getByEmail(user.getEmail()));
-        cartRepository.save(cart);
-
         try {
             request.login(user.getEmail(), user.getPassword());
         } catch (ServletException e) {
             System.out.println(e);
         }
-        return "redirect:/?login";
+        return "redirect:/";
     }
 
 }

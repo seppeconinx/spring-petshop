@@ -5,13 +5,62 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <title>Dierenwinkel Coninx</title>
+    <style>
+        .addPadding {
+            padding: 8px;
+        }
+    </style>
 </head>
+
 <body>
 <nav th:replace="~{nav::navbar}"></nav>
 <div class="container">
-    <h1>TEST CART</h1>
+            <div class="row addPadding">
+                <div class="col-lg-12">
+                    <div class="mb-3">
+                            <h2 class="mb-6 text-center" th:text="Cart"></h2>
+                        <div th:if="${products.size() == 0}">
+                            <h5 class="text-center">Your cart is empty</h5>
+                        </div>
+                            <div th:each="product: ${products}">
+                                <div class="row mb-5">
+                                    <div class="col-xl-3">
+                                        <div>
+                                            <img class="img-fluid w-100" th:src="'/img/' + ${product.image}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-9">
+                                        <div>
+                                                <div>
+                                                    <h4 th:text="${product.name}"></h4>
+                                                    <p class="mb-3 small" th:text="${product.description}"></p>
+                                                </div>
+                                                <p><span th:text="'€' + ${product.price}"></span></p></div>
+                                                <div>
+                                                    <form method="get" th:action="@{~/cart/removeProduct}" class="form-inline">
+                                                        <div class="form-check ">
+                                                            <input class="form-check-input" type="text"
+                                                                   th:value="${product.id}"
+                                                                   name="id" hidden></div>
+                                                        <button class="btn btn-danger" th:field="submit" th:value="Delete"><i
+                                                                class="fas fa-trash "></i></button>
+                                                    </form>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <div class="mb-3" th:if="${products.size() != 0}">
+                        <form method="POST" th:action="@{/cart}" class="pt-4">
+                            <button type="submit" name="submit" class="btn btn-primary float-right" th:text="Checkout"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
 </div>
 
 

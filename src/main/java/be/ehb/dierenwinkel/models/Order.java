@@ -10,14 +10,24 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private double total;
+
     @ManyToMany
     @JoinTable(
             name = "product_order",
             joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
     private List<Product> products;
+
     @ManyToOne()
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+
+    public Order(List<Product> products, User user, double total) {
+        this.total = total;
+        this.products = products;
+        this.user = user;
+    }
 
     public Order() {
     }
