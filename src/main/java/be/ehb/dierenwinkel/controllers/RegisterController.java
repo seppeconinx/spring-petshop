@@ -24,11 +24,13 @@ public class RegisterController {
         return new User();
     }
 
+    //Show register page
     @GetMapping(value ="/register")
     public String showRegister(Model model) {
         return "register";
     }
 
+    //Register account
     @PostMapping(value="/register")
     public String registerUser(@ModelAttribute("newUser") @Valid User user, BindingResult bindingResult, HttpServletRequest request){
         //Check if already an account with this email
@@ -40,6 +42,7 @@ public class RegisterController {
         }
         userService.save(user);
 
+        //Login after register
         try {
             request.login(user.getEmail(), user.getPassword());
         } catch (ServletException e) {

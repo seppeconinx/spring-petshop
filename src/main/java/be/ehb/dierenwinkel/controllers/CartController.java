@@ -27,6 +27,7 @@ public class CartController {
     private OrderRepository orderRepository;
 
 
+    //Show orders
     @GetMapping(value = "/orders")
     public String getOrders(ModelMap map, Principal principal){
         User u = userRepository.getByEmail(principal.getName());
@@ -34,6 +35,7 @@ public class CartController {
         return "orders";
     }
 
+    //Show cart
     @GetMapping(value = "/cart")
     public String showCart(ModelMap map, Principal principal) {
         User user = userRepository.getByEmail(principal.getName());
@@ -41,6 +43,7 @@ public class CartController {
         return "cart";
     }
 
+    //Add a new product to cart
     @GetMapping(value = "/cart/addProduct")
     public String addProductToCart(ModelMap map, Principal principal, @RequestParam("id") int id) {
         User user = userRepository.getByEmail(principal.getName());
@@ -51,6 +54,7 @@ public class CartController {
         return "redirect:/";
     }
 
+    //Remove product from cart
     @GetMapping(value = "/cart/removeProduct")
     public String removeProductFromCart(ModelMap map, Principal principal, @RequestParam("id") int id){
         User user = userRepository.getByEmail(principal.getName());
@@ -61,6 +65,7 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    //Checkout and redirect to orders page
     @PostMapping(value = "/cart")
     public String checkout(ModelMap map, Principal principal) {
         User user = userRepository.getByEmail(principal.getName());

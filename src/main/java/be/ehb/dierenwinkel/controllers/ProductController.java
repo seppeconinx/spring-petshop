@@ -20,12 +20,16 @@ public class ProductController {
     private ProductRepository productRepository;
     @Autowired
     private UserRepository userRepository;
+
+    //Show all products on index
     @GetMapping(value = "/")
     public String showAllProducts(ModelMap map) {
         Iterable<Product> products = productRepository.findAll();
         map.addAttribute("productList", products);
         return "index";
     }
+
+    //Show products based on selected category
     @GetMapping(value = {"/{category}"})
     public String showByCategory(ModelMap map, @PathVariable(name = "category") String category) {
         map.addAttribute("productList", productRepository.getAllByCategory(category));
